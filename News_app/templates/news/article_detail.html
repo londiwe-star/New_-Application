@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ article.title }} - News Portal{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <article>
+            {% if not article.is_approved %}
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle"></i> This article is pending editor approval.
+                </div>
+            {% endif %}
+            
+            <h1 class="mb-3">{{ article.title }}</h1>
+            
+            <div class="mb-4 text-muted">
+                <p>
+                    <i class="bi bi-person"></i> 
+                    <strong>Author:</strong> {{ article.author.get_full_name|default:article.author.username }}
+                    {% if article.publisher %}
+                        <br>
+                        <i class="bi bi-building"></i> 
+                        <strong>Publisher:</strong> {{ article.publisher.name }}
+                    {% else %}
+                        <span class="badge bg-secondary ms-2">Independent</span>
+                    {% endif %}
+                    <br>
+                    <i class="bi bi-calendar"></i> 
+                    <strong>Published:</strong> {{ article.created_at|date:"F d, Y" }}
+                    {% if article.approved_by %}
+                        <br>
+                        <i class="bi bi-check-circle"></i> 
+                        <strong>Approved by:</strong> {{ article.approved_by.get_full_name|default:article.approved_by.username }}
+                    {% endif %}
+                </p>
+            </div>
+            
+            <div class="article-content">
+                {{ article.content|linebreaks }}
+            </div>
+            
+            {% if user.is_authenticated %}
+                <div class="mt-4">
+                    {% if user == article.author or user.is_editor %}
+                        <a href="{% url 'news:article_edit' article.pk %}" class="btn btn-outline-primary">
+                            <i class="bi bi-pencil"></i> Edit Article
+                        </a>
+                    {% endif %}
+                    {% if user.is_editor and not article.is_approved %}
+                        <form method="post" action="{% url 'news:article_approve' article.pk %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle"></i> Approve Article
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </article>
+        
+        {% if related_articles %}
+            <hr class="my-5">
+            <h3>Related Articles</h3>
+            <div class="row">
+                {% for related in related_articles %}
+                    <div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title">
+                                    <a href="{% url 'news:article_detail' related.pk %}">{{ related.title }}</a>
+                                </h6>
+                                <p class="card-text text-muted">
+                                    <small>{{ related.created_at|date:"M d, Y" }}</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Article Info</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Author:</strong><br>{{ article.author.get_full_name|default:article.author.username }}</p>
+                {% if article.publisher %}
+                    <p><strong>Publisher:</strong><br>{{ article.publisher.name }}</p>
+                {% endif %}
+                <p><strong>Published:</strong><br>{{ article.created_at|date:"F d, Y" }}</p>
+                <p><strong>Last Updated:</strong><br>{{ article.updated_at|date:"F d, Y" }}</p>
+                {% if article.is_approved %}
+                    <span class="badge bg-success">Approved</span>
+                {% else %}
+                    <span class="badge bg-warning">Pending</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Journalists - News Portal{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Journalists</h1>
+        <p class="lead">Browse and subscribe to journalists.</p>
+    </div>
+</div>
+
+<div class="row">
+    {% if journalists %}
+        {% for journalist in journalists %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="bi bi-person-badge"></i> 
+                            {{ journalist.get_full_name|default:journalist.username }}
+                        </h5>
+                        <p class="text-muted">
+                            <small>
+                                <i class="bi bi-envelope"></i> {{ journalist.email }}
+                            </small>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        {% if user.is_authenticated and user.is_reader %}
+                            {% if journalist.is_subscribed %}
+                                <a href="{% url 'news:subscribe_journalist' journalist.id %}?action=unsubscribe" 
+                                   class="btn btn-danger btn-sm">
+                                    <i class="bi bi-x-circle"></i> Unsubscribe
+                                </a>
+                            {% else %}
+                                <a href="{% url 'news:subscribe_journalist' journalist.id %}?action=subscribe" 
+                                   class="btn btn-primary btn-sm">
+                                    <i class="bi bi-plus-circle"></i> Subscribe
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i> No journalists available yet.
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+

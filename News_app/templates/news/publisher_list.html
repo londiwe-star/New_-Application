@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Publishers - News Portal{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="mb-4">Publishers</h1>
+        <p class="lead">Browse and subscribe to news publishers.</p>
+    </div>
+</div>
+
+<div class="row">
+    {% if publishers %}
+        {% for publisher in publishers %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ publisher.name }}</h5>
+                        <p class="card-text">{{ publisher.description|truncatewords:20 }}</p>
+                        <p class="text-muted">
+                            <small>
+                                <i class="bi bi-people"></i> {{ publisher.editors.count }} editors, 
+                                {{ publisher.journalists.count }} journalists
+                            </small>
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        {% if user.is_authenticated and user.is_reader %}
+                            {% if publisher.is_subscribed %}
+                                <a href="{% url 'news:subscribe_publisher' publisher.id %}?action=unsubscribe" 
+                                   class="btn btn-danger btn-sm">
+                                    <i class="bi bi-x-circle"></i> Unsubscribe
+                                </a>
+                            {% else %}
+                                <a href="{% url 'news:subscribe_publisher' publisher.id %}?action=subscribe" 
+                                   class="btn btn-primary btn-sm">
+                                    <i class="bi bi-plus-circle"></i> Subscribe
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i> No publishers available yet.
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+

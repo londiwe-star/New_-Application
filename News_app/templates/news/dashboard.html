@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - News Portal{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="mb-2"><i class="bi bi-speedometer2"></i> Dashboard</h1>
+                <p class="lead text-muted mb-0">Welcome back, <strong>{{ user.get_full_name|default:user.username }}</strong>!</p>
+            </div>
+            <div>
+                <span class="badge bg-primary" style="font-size: 1rem; padding: 0.5rem 1rem;">
+                    {{ user.get_role_display }}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if user.is_reader %}
+    <!-- Reader Dashboard -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card shadow-custom">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="bi bi-bookmark-heart"></i> My Subscriptions</h5>
+                </div>
+                <div class="card-body">
+                    <h6>Publishers</h6>
+                    {% if subscribed_publishers %}
+                        <ul class="list-group list-group-flush">
+                            {% for publisher in subscribed_publishers %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ publisher.name }}
+                                    <a href="{% url 'news:subscribe_publisher' publisher.id %}?action=unsubscribe" 
+                                       class="btn btn-sm btn-outline-danger">Unsubscribe</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">You haven't subscribed to any publishers yet.</p>
+                        <a href="{% url 'news:publisher_list' %}" class="btn btn-primary btn-sm">Browse Publishers</a>
+                    {% endif %}
+                    
+                    <hr>
+                    
+                    <h6>Journalists</h6>
+                    {% if subscribed_journalists %}
+                        <ul class="list-group list-group-flush">
+                            {% for journalist in subscribed_journalists %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ journalist.get_full_name|default:journalist.username }}
+                                    <a href="{% url 'news:subscribe_journalist' journalist.id %}?action=unsubscribe" 
+                                       class="btn btn-sm btn-outline-danger">Unsubscribe</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">You haven't subscribed to any journalists yet.</p>
+                        <a href="{% url 'news:journalist_list' %}" class="btn btn-primary btn-sm">Browse Journalists</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card shadow-custom">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="bi bi-lightning-charge"></i> Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <a href="{% url 'news:publisher_list' %}" class="btn btn-outline-primary w-100 mb-2">
+                        <i class="bi bi-building"></i> Browse Publishers
+                    </a>
+                    <a href="{% url 'news:journalist_list' %}" class="btn btn-outline-primary w-100 mb-2">
+                        <i class="bi bi-person-badge"></i> Browse Journalists
+                    </a>
+                    <a href="{% url 'news:article_list' %}" class="btn btn-outline-primary w-100">
+                        <i class="bi bi-newspaper"></i> Browse All Articles
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <h3 class="mb-3">Articles from Your Subscriptions</h3>
+            {% if articles %}
+                <div class="row">
+                    {% for article in articles %}
+                        <div class="col-md-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <a href="{% url 'news:article_detail' article.pk %}">{{ article.title }}</a>
+                                    </h5>
+                                    <p class="card-text text-muted">
+                                        <small>
+                                            By {{ article.author.get_full_name|default:article.author.username }}
+                                            | {{ article.created_at|date:"M d, Y" }}
+                                        </small>
+                                    </p>
+                                    <p class="card-text">{{ article.content|truncatewords:20 }}</p>
+                                    <a href="{% url 'news:article_detail' article.pk %}" class="btn btn-primary btn-sm">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i> No articles from your subscriptions yet.
+                    <a href="{% url 'news:publisher_list' %}" class="alert-link">Subscribe to publishers</a> or 
+                    <a href="{% url 'news:journalist_list' %}" class="alert-link">journalists</a> to see personalized content.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% elif user.is_journalist %}
+    <!-- Journalist Dashboard -->
+    <div class="row mb-4">
+        <div class="col-md-3 mb-3">
+            <div class="dashboard-card text-center">
+                <h5>Total Articles</h5>
+                <h2 class="text-primary">{{ total_articles }}</h2>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="dashboard-card text-center" style="border-top-color: var(--success-color);">
+                <h5>Approved</h5>
+                <h2 style="color: var(--success-color);">{{ approved_articles }}</h2>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="dashboard-card text-center" style="border-top-color: var(--warning-color);">
+                <h5>Pending</h5>
+                <h2 style="color: var(--warning-color);">{{ pending_articles }}</h2>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="dashboard-card text-center d-flex align-items-center justify-content-center">
+                <a href="{% url 'news:article_create' %}" class="btn btn-primary btn-lg">
+                    <i class="bi bi-plus-circle"></i> New Article
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <h3 class="mb-3">My Recent Articles</h3>
+            {% if articles %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for article in articles %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'news:article_detail' article.pk %}">{{ article.title }}</a>
+                                    </td>
+                                    <td>
+                                        {% if article.is_approved %}
+                                            <span class="badge bg-success">Approved</span>
+                                        {% else %}
+                                            <span class="badge bg-warning">Pending</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ article.created_at|date:"M d, Y" }}</td>
+                                    <td>
+                                        <a href="{% url 'news:article_detail' article.pk %}" class="btn btn-sm btn-outline-primary">View</a>
+                                        <a href="{% url 'news:article_edit' article.pk %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <a href="{% url 'news:my_articles' %}" class="btn btn-outline-primary">View All Articles</a>
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i> You haven't created any articles yet.
+                    <a href="{% url 'news:article_create' %}" class="alert-link">Create your first article</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% elif user.is_editor %}
+    <!-- Editor Dashboard -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-custom text-center" style="padding: 3rem;">
+                <div class="card-body">
+                    <i class="bi bi-clock-history" style="font-size: 4rem; color: var(--warning-color);"></i>
+                    <h2 class="mt-3 mb-2">Pending Articles</h2>
+                    <h1 class="display-3 text-warning mb-4">{{ pending_count }}</h1>
+                    <a href="{% url 'news:pending_articles' %}" class="btn btn-primary btn-lg">
+                        <i class="bi bi-check-circle"></i> Review Pending Articles
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}
+

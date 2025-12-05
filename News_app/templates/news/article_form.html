@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ action }} Article - News Portal{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="mb-4">{{ action }} Article</h1>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="{{ form.title.id_for_label }}" class="form-label">Title</label>
+                {{ form.title }}
+                {% if form.title.errors %}
+                    <div class="text-danger">{{ form.title.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="mb-3">
+                <label for="{{ form.content.id_for_label }}" class="form-label">Content</label>
+                {{ form.content }}
+                {% if form.content.errors %}
+                    <div class="text-danger">{{ form.content.errors }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="mb-3">
+                <label for="{{ form.publisher.id_for_label }}" class="form-label">Publisher</label>
+                {{ form.publisher }}
+                {% if form.publisher.errors %}
+                    <div class="text-danger">{{ form.publisher.errors }}</div>
+                {% endif %}
+                <small class="form-text text-muted">Leave empty for independent publishing.</small>
+            </div>
+            
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{% if article %}{% url 'news:article_detail' article.pk %}{% else %}{% url 'news:my_articles' %}{% endif %}" 
+                   class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> {{ action }} Article
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+

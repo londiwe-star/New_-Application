@@ -1,0 +1,141 @@
+INFO 2025-12-04 21:21:51,309 autoreload Watching for file changes with StatReloader
+INFO 2025-12-04 21:22:18,354 basehttp "GET / HTTP/1.1" 200 4590
+INFO 2025-12-04 21:22:23,555 basehttp "GET /articles/ HTTP/1.1" 200 3929
+INFO 2025-12-04 21:22:26,999 basehttp "GET /articles/?search=mmmm HTTP/1.1" 200 4147
+INFO 2025-12-04 21:22:32,413 basehttp "GET /articles/ HTTP/1.1" 200 3929
+INFO 2025-12-04 21:22:34,951 basehttp "GET /login/ HTTP/1.1" 200 5150
+INFO 2025-12-04 21:22:37,101 basehttp "GET /register/ HTTP/1.1" 200 6861
+INFO 2025-12-04 21:22:45,160 basehttp "GET / HTTP/1.1" 200 4590
+INFO 2025-12-04 21:22:46,253 basehttp "GET / HTTP/1.1" 200 4590
+INFO 2025-12-04 21:22:47,241 basehttp "GET /articles/ HTTP/1.1" 200 3929
+INFO 2025-12-04 21:22:48,422 basehttp "GET / HTTP/1.1" 200 4590
+INFO 2025-12-04 21:22:49,130 basehttp "GET / HTTP/1.1" 200 4590
+INFO 2025-12-04 21:26:07,000 autoreload D:\News_app\news\models.py changed, reloading.
+INFO 2025-12-04 21:26:09,842 autoreload Watching for file changes with StatReloader
+INFO 2025-12-04 21:26:59,978 autoreload D:\News_app\news\models.py changed, reloading.
+INFO 2025-12-04 21:27:01,848 autoreload Watching for file changes with StatReloader
+INFO 2025-12-04 21:28:29,012 autoreload D:\News_app\news\models.py changed, reloading.
+INFO 2025-12-04 21:28:30,239 autoreload Watching for file changes with StatReloader
+INFO 2025-12-04 21:32:11,653 basehttp "GET / HTTP/1.1" 200 5130
+INFO 2025-12-04 21:32:11,850 basehttp "GET /static/css/custom.css HTTP/1.1" 200 9597
+INFO 2025-12-04 21:32:16,332 basehttp "GET / HTTP/1.1" 200 5130
+INFO 2025-12-04 21:32:17,638 basehttp "GET /articles/ HTTP/1.1" 200 4132
+INFO 2025-12-04 21:32:21,218 basehttp "GET /login/ HTTP/1.1" 200 4984
+INFO 2025-12-04 21:32:22,748 basehttp "GET /register/ HTTP/1.1" 200 6695
+INFO 2025-12-04 21:32:25,110 basehttp "GET / HTTP/1.1" 200 5130
+INFO 2025-12-04 21:32:26,949 basehttp "GET /articles/ HTTP/1.1" 200 4132
+INFO 2025-12-04 21:32:31,183 basehttp "GET /articles/?search=mmmm HTTP/1.1" 200 4374
+INFO 2025-12-04 21:32:32,693 basehttp "GET /articles/ HTTP/1.1" 200 4132
+INFO 2025-12-04 21:32:37,189 basehttp "GET /articles/ HTTP/1.1" 200 4132
+INFO 2025-12-04 21:32:37,230 basehttp "GET /static/css/custom.css HTTP/1.1" 304 0
+INFO 2025-12-04 21:32:38,768 basehttp "GET / HTTP/1.1" 200 5130
+INFO 2025-12-04 21:32:41,617 basehttp "GET /articles/ HTTP/1.1" 200 4132
+INFO 2025-12-04 21:32:45,905 basehttp "GET /login/ HTTP/1.1" 200 4984
+INFO 2025-12-04 21:32:52,580 basehttp "GET /register/ HTTP/1.1" 200 6695
+INFO 2025-12-04 21:33:14,720 basehttp "POST /register/ HTTP/1.1" 200 6974
+INFO 2025-12-04 21:33:14,767 basehttp "GET /static/css/custom.css HTTP/1.1" 304 0
+ERROR 2025-12-04 21:33:33,915 log Internal Server Error: /register/
+Traceback (most recent call last):
+  File "C:\Users\PC Center\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\PC Center\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\News_app\news\views.py", line 54, in register
+    return redirect('login')
+  File "C:\Users\PC Center\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\PC Center\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\PC Center\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\PC Center\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-12-04 21:33:33,927 basehttp "POST /register/ HTTP/1.1" 500 90283
+INFO 2025-12-04 21:33:59,454 basehttp "GET /register/ HTTP/1.1" 200 7053
+INFO 2025-12-04 21:34:04,334 basehttp "GET /register/ HTTP/1.1" 200 6695
+INFO 2025-12-04 21:34:04,381 basehttp "GET /static/css/custom.css HTTP/1.1" 304 0
+INFO 2025-12-04 21:34:29,744 basehttp "POST /register/ HTTP/1.1" 200 6944
+ERROR 2025-12-04 21:34:56,595 log Internal Server Error: /register/
+Traceback (most recent call last):
+  File "C:\Users\PC Center\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\PC Center\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\News_app\news\views.py", line 54, in register
+    return redirect('login')
+  File "C:\Users\PC Center\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\PC Center\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\PC Center\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\PC Center\AppData\Local\Programs\Python\Python313\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-12-04 21:34:56,604 basehttp "POST /register/ HTTP/1.1" 500 90285
+INFO 2025-12-04 21:36:20,867 autoreload D:\News_app\news\views.py changed, reloading.
+INFO 2025-12-04 21:36:23,080 autoreload Watching for file changes with StatReloader
+INFO 2025-12-04 21:36:27,190 autoreload D:\News_app\news\views.py changed, reloading.
+INFO 2025-12-04 21:36:28,946 autoreload Watching for file changes with StatReloader
+INFO 2025-12-04 21:36:32,859 autoreload D:\News_app\news\views.py changed, reloading.
+INFO 2025-12-04 21:36:34,567 autoreload Watching for file changes with StatReloader
+INFO 2025-12-04 21:36:38,502 autoreload D:\News_app\news\views.py changed, reloading.
+INFO 2025-12-04 21:36:40,755 autoreload Watching for file changes with StatReloader
+INFO 2025-12-04 21:36:43,733 autoreload D:\News_app\news\views.py changed, reloading.
+INFO 2025-12-04 21:36:45,449 autoreload Watching for file changes with StatReloader
+INFO 2025-12-04 21:36:49,519 autoreload D:\News_app\news\views.py changed, reloading.
+INFO 2025-12-04 21:36:51,222 autoreload Watching for file changes with StatReloader
+INFO 2025-12-04 21:36:56,571 autoreload D:\News_app\news\views.py changed, reloading.
+INFO 2025-12-04 21:36:58,370 autoreload Watching for file changes with StatReloader
+INFO 2025-12-04 21:37:13,026 autoreload D:\News_app\news_portal\settings.py changed, reloading.
+INFO 2025-12-04 21:37:14,612 autoreload Watching for file changes with StatReloader
+INFO 2025-12-04 21:37:22,243 autoreload D:\News_app\news_portal\settings.py changed, reloading.
+INFO 2025-12-04 21:37:24,186 autoreload Watching for file changes with StatReloader
+INFO 2025-12-04 21:37:29,419 basehttp "POST /register/ HTTP/1.1" 200 7306
+INFO 2025-12-04 21:37:29,469 basehttp "GET /static/css/custom.css HTTP/1.1" 304 0
+INFO 2025-12-04 21:37:59,437 basehttp "POST /register/ HTTP/1.1" 200 6945
+INFO 2025-12-04 21:38:14,828 basehttp "POST /register/ HTTP/1.1" 302 0
+INFO 2025-12-04 21:38:14,840 basehttp "GET /login/ HTTP/1.1" 200 5345
+INFO 2025-12-04 21:38:39,558 basehttp "POST /login/ HTTP/1.1" 200 5252
+INFO 2025-12-04 21:38:39,600 basehttp "GET /static/css/custom.css HTTP/1.1" 304 0
+INFO 2025-12-04 21:38:52,972 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-04 21:38:52,994 basehttp "GET / HTTP/1.1" 200 6370
+INFO 2025-12-04 21:38:56,433 basehttp "GET /articles/ HTTP/1.1" 200 5245
+INFO 2025-12-04 21:39:03,496 basehttp "GET /journalists/ HTTP/1.1" 200 4476
+INFO 2025-12-04 21:39:04,755 basehttp "GET /publishers/ HTTP/1.1" 200 4477
+INFO 2025-12-04 21:39:05,899 basehttp "GET /dashboard/ HTTP/1.1" 200 7109
+INFO 2025-12-04 21:39:08,298 basehttp "GET /publishers/ HTTP/1.1" 200 4477
+INFO 2025-12-04 21:39:10,315 basehttp "GET /publishers/ HTTP/1.1" 200 4477
+INFO 2025-12-04 21:39:12,746 basehttp "GET /dashboard/ HTTP/1.1" 200 7109
+INFO 2025-12-04 21:39:14,494 basehttp "GET /journalists/ HTTP/1.1" 200 4476
+INFO 2025-12-04 21:39:15,917 basehttp "GET /articles/ HTTP/1.1" 200 5245
+INFO 2025-12-04 21:39:17,136 basehttp "GET / HTTP/1.1" 200 6370
+INFO 2025-12-04 21:39:18,129 basehttp "GET / HTTP/1.1" 200 6370
+INFO 2025-12-04 21:39:22,968 basehttp "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-12-04 21:39:22,981 basehttp "GET / HTTP/1.1" 200 5130
+INFO 2025-12-04 21:39:25,959 basehttp "GET /register/ HTTP/1.1" 200 6695
+INFO 2025-12-04 21:40:13,830 basehttp "POST /register/ HTTP/1.1" 200 6943
+INFO 2025-12-04 21:40:13,878 basehttp "GET /static/css/custom.css HTTP/1.1" 304 0
+INFO 2025-12-04 21:40:33,232 basehttp "POST /register/ HTTP/1.1" 302 0
+INFO 2025-12-04 21:40:33,240 basehttp "GET /login/ HTTP/1.1" 200 5337
+INFO 2025-12-04 21:40:46,619 basehttp "POST /login/ HTTP/1.1" 302 0
+INFO 2025-12-04 21:40:46,632 basehttp "GET / HTTP/1.1" 200 6244
+INFO 2025-12-04 21:40:53,073 basehttp "GET /articles/pending/ HTTP/1.1" 200 4471
+INFO 2025-12-04 21:40:56,772 basehttp "GET /articles/pending/ HTTP/1.1" 200 4471
+INFO 2025-12-04 21:40:57,586 basehttp "GET /dashboard/ HTTP/1.1" 200 5394
+INFO 2025-12-04 21:40:59,774 basehttp "GET /articles/pending/ HTTP/1.1" 200 4471
+INFO 2025-12-04 21:41:02,114 basehttp "GET /articles/ HTTP/1.1" 200 5302
+INFO 2025-12-04 21:41:03,077 basehttp "GET / HTTP/1.1" 200 6244
+INFO 2025-12-04 21:41:04,996 basehttp "GET / HTTP/1.1" 200 6244
+INFO 2025-12-04 21:41:08,144 basehttp "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-12-04 21:41:08,157 basehttp "GET / HTTP/1.1" 200 5130
+INFO 2025-12-04 21:41:11,486 basehttp "GET /articles/ HTTP/1.1" 200 4132
+INFO 2025-12-04 21:41:12,258 basehttp "GET / HTTP/1.1" 200 5130
+INFO 2025-12-04 21:41:14,313 basehttp "GET /articles/ HTTP/1.1" 200 4132
+INFO 2025-12-04 21:41:25,449 basehttp "GET /register/ HTTP/1.1" 200 6695
+INFO 2025-12-04 21:41:25,498 basehttp "GET /static/css/custom.css HTTP/1.1" 304 0
